@@ -5,9 +5,9 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 client = commands.Bot("!")
-Token = "OTIyODYwODE2MDc0NjkwNTcw.YcHnHA.pwCkCkNCt5lv5ow3EkOQzD9kkFM"
-username = "b201200007"
-password = "s5f5M7az"
+Token = ""
+username = ""
+password = ""
 
 @client.event
 async def on_ready():  

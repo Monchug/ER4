@@ -9,7 +9,8 @@ client = commands.Bot("!")
 Token = ""
 username = ""
 password = ""
-
+bsmg = []
+a = []
 @client.event
 async def on_ready():  
     print(f"{client.user} botu Discorda bağlandı!\n")
@@ -33,30 +34,54 @@ async def on_message(ctx):
 async def on_message(ctx):
     if client.user == ctx.message.author:
         return
-    
+        
     options = webdriver.ChromeOptions()
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
     driver = webdriver.Chrome(options=options)
-    driver.get("http://obs.sabis.sakarya.edu.tr/Ders/Grup/655940")
-    driver.find_element(By.NAME,"Username").send_keys(username)
-    driver.find_element(By.NAME,"Password").send_keys(password)
-    driver.find_element(By.NAME,"button").click()
-
+    #driver.find_element(By.NAME,'Username').send_keys(username)
+    #driver.find_element(By.NAME,'Password').send_keys(password)
+    #driver.find_element(By.NAME,'button').click()
+    driver.get('https://dcbotdeneme.blogspot.com/2022/02/deneme.html')
     while True:
 
-        driver.get('https://obs.sabis.sakarya.edu.tr/Ders/Grup/655940')
-        duyuru = driver.find_element(By.CLASS_NAME,'timeline-content')
-        time.sleep(5)
-        driver.get('https://obs.sabis.sakarya.edu.tr/Ders/Grup/655940')
-        duyuru2 = driver.find_element(By.CLASS_NAME,'timeline-content')
-        if duyuru != duyuru2:
-            await ctx.message.channel.send("@everyone")
-            await ctx.message.channel.send(duyuru2.text)
+        duyuru = driver.find_element(By.CLASS_NAME, 'post-outer')
+        bsmg.append(duyuru.text)
+        driver.refresh()
+        time.sleep(10)
+        driver.refresh()
+        duyuru2 = driver.find_element(By.CLASS_NAME, 'post-outer')
+        bsmg.append(duyuru2.text)
+        if bsmg[0] != bsmg[1]:
+            await ctx.message.channel.send(bsmg[1])
+        bsmg.clear()
+        driver.refresh()
+        time.sleep(10)
 
 @client.command(name="a")
 async def on_message(ctx):
     if client.user == ctx.message.author:
         return
-    await ctx.message.channel.send("@everyone")
-    
+        
+    options = webdriver.ChromeOptions()
+    options.add_experimental_option('excludeSwitches', ['enable-logging'])
+    driver = webdriver.Chrome(options=options)
+    #driver.find_element(By.NAME,'Username').send_keys(username)
+    #driver.find_element(By.NAME,'Password').send_keys(password)
+    #driver.find_element(By.NAME,'button').click()
+    driver.get('https://dcbotdeneme.blogspot.com/2022/02/deneme2.html')
+    while True:
+
+        duyuru = driver.find_element(By.CLASS_NAME, 'post-outer')
+        a.append(duyuru.text)
+        driver.refresh()
+        time.sleep(10)
+        driver.refresh()
+        duyuru2 = driver.find_element(By.CLASS_NAME, 'post-outer')
+        a.append(duyuru2.text)
+        if a[0] != a[1]:
+            await ctx.message.channel.send(a[1])
+        a.clear()
+        driver.refresh()
+        time.sleep(10)
+
 client.run(Token)

@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
 import argparse
+import asyncio
 
 parser = argparse.ArgumentParser(description="Discord Bot for Sakarya University BBF Discord Server")
 parser.add_argument("-t","--token",required=True,help="Your Discord Bot Token")
@@ -51,10 +52,10 @@ async def on_message(ctx):
         duyuru = driver.find_element(By.CLASS_NAME, 'timeline-item')
         liste.append(duyuru.text)
         driver.refresh()
-        time.sleep(10)
+        await asyncio.sleep(5)
         duyuru2 = driver.find_element(By.CLASS_NAME, 'timeline-item')
         liste.append(duyuru2.text)
-        time.sleep(10)
+        await asyncio.sleep(5)
         if liste[0] == liste[1]:
             await ctx.message.channel.send("@everyone")
             await ctx.message.channel.send(liste[1])

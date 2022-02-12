@@ -51,10 +51,10 @@ async def on_message(ctx):
         duyuru = driver.find_element(By.CLASS_NAME, 'timeline-item')
         liste.append(duyuru.text)
         driver.refresh()
-        time.sleep(450)
+        time.sleep(10)
         duyuru2 = driver.find_element(By.CLASS_NAME, 'timeline-item')
         liste.append(duyuru2.text)
-        time.sleep(450)
+        time.sleep(10)
         if liste[0] == liste[1]:
             await ctx.message.channel.send("@everyone")
             await ctx.message.channel.send(liste[1])
